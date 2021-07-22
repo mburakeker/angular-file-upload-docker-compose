@@ -24,3 +24,7 @@ After installing and starting the docker desktop, change directory to upload-fil
 
 Wait for it to build and boot. 
 Then check out the [Angular App](http://localhost:80)
+
+Once you are finished, you can stop the containers and remove the volumes it created by entering the following command in the same directory:
+
+     docker-compose down -v
