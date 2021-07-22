@@ -1,0 +1,39 @@
+version: "3.4"
+
+services:
+  upload-file.api:
+    container_name: upload-file.api
+    build:
+      context: upload-file-netcore
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      ASPNETCORE_APPREQUIREHOST: "*:5000"
+      ASPNETCORE_URLS: "http://*:5000"
+      ASPNETCORE_ENVIRONMENT: "Development"
+      MinioSettings__Endpoint: "upload-file.minio:9000"
+      MinioSettings__AccessKey: "change-me-to-your-access-key-here"
+      MinioSettings__SecretKey: "change-me-dont-use-this-for-real"
+      MinioSettings__Bucket: "default"
+    ports:
+      - 5000:5000
+    depends_on:
+      - upload-file.minio
+  upload-file.minio:
+    container_name: upload-file.minio
+    image: minio/minio:latest
+    environment:
+        MINIO_ACCESS_KEY: change-me-to-your-access-key-here
+        MINIO_SECRET_KEY: change-me-dont-use-this-for-real
+    ports:
+        - 9000:9000
+    command: server /data
+    restart: always
+  upload-file.angular:
+    container_name: upload-file.angular
+    build:
+        context: upload-file-angular
+        dockerfile: Dockerfile
+    ports:
+        - 80:80
+    restart: always

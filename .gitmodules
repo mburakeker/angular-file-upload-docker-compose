@@ -1,0 +1,6 @@
+[submodule "upload-file-angular"]
+	path = upload-file-angular
+	url = https://github.com/mburakeker/upload-file-angular.git
+[submodule "upload-file-netcore"]
+	path = upload-file-netcore
+	url = https://github.com/mburakeker/upload-file-netcore.git
